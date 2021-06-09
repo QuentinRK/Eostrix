@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Megrim&family=Montserrat:wght@100&display=swap');
+
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  width: 100%;
+  min-height: 100vh;
+  overflow:hidden;
+}
+
+.container {
+  display: grid;
+  text-align: center;
+  justify-content: center;
+  height: 100vh;
+  gap: .2rem;
+  grid-template-columns: .5fr 1fr 1fr .5fr;
+  grid-template-rows: .2fr 2fr;
+  grid-template-areas: 
+  "title title title title"
+  "side main main info";
+
+}
+
+.navbar, .main_container, .side, .side_left{
+  overflow: hidden;
+  color: white;
+  background-color: #161515;
+}
+.navbar {
+  grid-area: title;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6rem;
+  align-items: center;
+}
+
+.navbar li {
+
+  display: inline-block;
+  font-size: 1.1rem;
+}
+
+.navbar li a {
+
+  text-decoration: none;
+  color:  white;
+  margin:0 4rem;
+
+}
+
+
+.navbar li a:hover {
+
+  border: transparent;
+  padding: .3rem .7rem;
+  border-radius: 1rem;
+  background-color: grey;
+  animation: navbarHover 1.5s alternate infinite;
+  animation-timing-function: ease-in-out;
+  animation-delay: 1s;
+}
+
+@keyframes navbarHover {
+
+  0%   {background-color: #868686;}
+  10%  {background-color: #706f6f;}
+  20%  {background-color: #5f5e5e;}
+  30%  {background-color: #535252;}
+  40%  {background-color: #4b4a4a;}
+  50%  {background-color: #464646;}
+  60%  {background-color: #3b3b3b;}
+  70%  {background-color: #313131;}
+  80%  {background-color: #2c2c2c;}
+  100% {background-color: #272727;}
+}
+
+.header h1 {
+  font-size: 2rem;
+  justify-content: flex-start;
+  font-family: 'Megrim', cursive;
+}
+
+
+img {
+
+  padding: rem;
+  width: 70%;
+
+}
+
+.main_container {
+  grid-area: main;
+
+}
+
+
+.main {
+  background-color: rgb(158, 152, 152);
+  display: flex;
+  flex-direction: column;
+  height:100vh;
+}
+
+.main h2 {
+
+  padding: 1rem; 
+
+}
+
+.main hr {
+
+  margin: 0 33rem
+
+}
+
+.chart {
+
+  padding-top: 3rem;
+
+}
+
+
+.chart h3 {
+
+  padding-top: 1rem;
+  font-size: 1rem
+}
+
+
+.top_5 {
+  margin: 1rem 7rem;
+  height: 12rem;
+}
+
+.top_5 , th, td {
+  border-top: 1px solid transparent;
+  border-collapse: collapse;
+  color: white;
+  padding: rem;
+  font-size: 1.2rem;
+}
+
+.top_5 th {
+  padding-bottom: .5rem;
+  border-top: none;
+
+}
+
+.top_5 td {
+
+  padding: .3rem;
+  white-space: nowrap;
+
+}
+
+.top_5 tr {
+  text-align: left;
+
+
+}
+
+.top_5 tr:nth-child(even), .live_prices tr:nth-child(even){
+    background-color: #7e7e7e;
+
+}
+
+
+.side {
+  grid-area: side;
+  display: flex;
+  background-color: #161515;
+  padding: 1rem 0 ;
+  align-items: stretch;
+  justify-content: center;
+
+}
+
+.live_prices {
+  width: 18rem;
+}
+
+.live_prices, th, td {
+  border-top: 1px solid transparent;
+  border-collapse: collapse;
+  color: white;
+
+}
+
+.live_prices th {
+  text-align: left;
+
+}
+
+.side_left {
+  grid-area: info;
+  display: flex;
+  background-color: #161515;
+  padding: 1rem 0 ;
+  align-items: stretch;
+  justify-content: center;
+
+}
