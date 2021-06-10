@@ -7,13 +7,8 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="static/styles.css">
-
-
-    <script>
-
-    // setTimeout(function(){
-    //        location.reload();},10000); // 5000 milliseconds means 5 seconds.
-    </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js" integrity="sha512-iZIBSs+gDyTH0ZhUem9eQ1t4DcEn2B9lHxfRMeGQhyNdSUz+rb+5A3ummX6DQTOIs1XK0gOteOg/LPtSo9VJ+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
     <body>
 
@@ -36,36 +31,8 @@
         <div class="main_container">
             <section class="box main">
 
-                <h2>The Big 5</h2>
-                <!-- <hr> -->
-                <!-- <table class="top_5">
-                    <tr>
-                     <th>Currency</th>
-                     <th>Price</th>
-                    </tr>
-                    <tr>
-                        <td>BTC/USD</td>
-                        <td>1.96542</td>
-                    </tr>
-                    <tr>
-                        <td>ETH/BTC</td>
-                        <td>2343.22</td>
-                    </tr>
-                    <tr>
-                        <td>LTC/DOGE</td>
-                        <td>15.6893</td>
-                    </tr>
-                    <tr>
-                        <td>XMR/BTC</td>
-                        <td>2.230384</td>
-                    </tr>
-                    <tr>
-                        <td>USDT/USD</td>
-                        <td>178.99473</td>
-                    </tr>
-                    </table> -->
-
-
+                <h2 id="values">The Big 5</h2>
+    
                     <div class="chart">
                         <img src="static/images/chart.png" alt="chart">
                 
@@ -73,8 +40,6 @@
                     </div>
             </section>
         </div>
-
-
            
            <section class="box side">
             <table class="live_prices">
@@ -82,247 +47,31 @@
                  <th>Currency</th>
                  <th>Price</th>
                 </tr>
-                <tr>
-                    <td>BTC/USD</td>
-                    <td>1.96542</td>
+
+                {% for items in crypto %}
+                <tr class={{items}}>
+                    <td>
+                        {{items}}
+                    </td>
+                    {% set id = items + "1" %}
+                    <td id={{id}}></td>
                 </tr>
-                <tr>
-                    <td>ETH/BTC</td>
-                    <td>2343.22</td>
-                </tr>
-                <tr>
-                    <td>LTC/DOGE</td>
-                    <td>15.6893</td>
-                </tr>
-                <tr>
-                    <td>XMR/BTC</td>
-                    <td>2.230384</td>
-                </tr>
-                <tr>
-                    <td>USDT/USD</td>
-                    <td>178.99473</td>
-                </tr>
-                <tr>
-                    <td>BTC/USD</td>
-                    <td>1.96542</td>
-                </tr>
-                <tr>
-                    <td>ETH/BTC</td>
-                    <td>2343.22</td>
-                </tr>
-                <tr>
-                    <td>LTC/DOGE</td>
-                    <td>15.6893</td>
-                </tr>
-                <tr>
-                    <td>XMR/BTC</td>
-                    <td>2.230384</td>
-                </tr>
-                <tr>
-                    <td>USDT/USD</td>
-                    <td>178.99473</td>
-                </tr>
-                <tr>
-                    <td>BTC/USD</td>
-                    <td>1.96542</td>
-                </tr>
-                <tr>
-                    <td>ETH/BTC</td>
-                    <td>2343.22</td>
-                </tr>
-                <tr>
-                    <td>LTC/DOGE</td>
-                    <td>15.6893</td>
-                </tr>
-                <tr>
-                    <td>XMR/BTC</td>
-                    <td>2.230384</td>
-                </tr>
-                <tr>
-                    <td>USDT/USD</td>
-                    <td>178.99473</td>
-                </tr>
-                <tr>
-                    <td>BTC/USD</td>
-                    <td>1.96542</td>
-                </tr>
-                <tr>
-                    <td>ETH/BTC</td>
-                    <td>2343.22</td>
-                </tr>
-                <tr>
-                    <td>LTC/DOGE</td>
-                    <td>15.6893</td>
-                </tr>
-                <tr>
-                    <td>XMR/BTC</td>
-                    <td>2.230384</td>
-                </tr>
-                <tr>
-                    <td>USDT/USD</td>
-                    <td>178.99473</td>
-                </tr>
-                <tr>
-                    <td>BTC/USD</td>
-                    <td>1.96542</td>
-                </tr>
-                <tr>
-                    <td>ETH/BTC</td>
-                    <td>2343.22</td>
-                </tr>
-                <tr>
-                    <td>LTC/DOGE</td>
-                    <td>15.6893</td>
-                </tr>
-                <tr>
-                    <td>XMR/BTC</td>
-                    <td>2.230384</td>
-                </tr>
-                <tr>
-                    <td>USDT/USD</td>
-                    <td>178.99473</td>
-                </tr>
-                <tr>
-                    <td>BTC/USD</td>
-                    <td>1.96542</td>
-                </tr>
-                <tr>
-                    <td>ETH/BTC</td>
-                    <td>2343.22</td>
-                </tr>
-                <tr>
-                    <td>LTC/DOGE</td>
-                    <td>15.6893</td>
-                </tr>
-       
+
+                {% endfor %}
                 </table>
             </section>
         
 
-            <section class="box side_left">
-              
+            <section class="box side_left">        
                 <table class="live_prices">
                     <tr>
                      <th>Currency</th>
                      <th>Price</th>
                     </tr>
-                    <tr>
-                        <td>BTC/USD</td>
-                        <td>1.96542</td>
-                    </tr>
-                    <tr>
-                        <td>ETH/BTC</td>
-                        <td>2343.22</td>
-                    </tr>
-                    <tr>
-                        <td>LTC/DOGE</td>
-                        <td>15.6893</td>
-                    </tr>
-                    <tr>
-                        <td>XMR/BTC</td>
-                        <td>2.230384</td>
-                    </tr>
-                    <tr>
-                        <td>USDT/USD</td>
-                        <td>178.99473</td>
-                    </tr>
-                    <tr>
-                        <td>BTC/USD</td>
-                        <td>1.96542</td>
-                    </tr>
-                    <tr>
-                        <td>ETH/BTC</td>
-                        <td>2343.22</td>
-                    </tr>
-                    <tr>
-                        <td>LTC/DOGE</td>
-                        <td>15.6893</td>
-                    </tr>
-                    <tr>
-                        <td>XMR/BTC</td>
-                        <td>2.230384</td>
-                    </tr>
-                    <tr>
-                        <td>USDT/USD</td>
-                        <td>178.99473</td>
-                    </tr>
-                    <tr>
-                        <td>BTC/USD</td>
-                        <td>1.96542</td>
-                    </tr>
-                    <tr>
-                        <td>ETH/BTC</td>
-                        <td>2343.22</td>
-                    </tr>
-                    <tr>
-                        <td>LTC/DOGE</td>
-                        <td>15.6893</td>
-                    </tr>
-                    <tr>
-                        <td>XMR/BTC</td>
-                        <td>2.230384</td>
-                    </tr>
-                    <tr>
-                        <td>USDT/USD</td>
-                        <td>178.99473</td>
-                    </tr>
-                    <tr>
-                        <td>BTC/USD</td>
-                        <td>1.96542</td>
-                    </tr>
-                    <tr>
-                        <td>ETH/BTC</td>
-                        <td>2343.22</td>
-                    </tr>
-                    <tr>
-                        <td>LTC/DOGE</td>
-                        <td>15.6893</td>
-                    </tr>
-                    <tr>
-                        <td>XMR/BTC</td>
-                        <td>2.230384</td>
-                    </tr>
-                    <tr>
-                        <td>USDT/USD</td>
-                        <td>178.99473</td>
-                    </tr>
-                    <tr>
-                        <td>BTC/USD</td>
-                        <td>1.96542</td>
-                    </tr>
-                    <tr>
-                        <td>ETH/BTC</td>
-                        <td>2343.22</td>
-                    </tr>
-                    <tr>
-                        <td>LTC/DOGE</td>
-                        <td>15.6893</td>
-                    </tr>
-                    <tr>
-                        <td>XMR/BTC</td>
-                        <td>2.230384</td>
-                    </tr>
-                    <tr>
-                        <td>USDT/USD</td>
-                        <td>178.99473</td>
-                    </tr>
-                    <tr>
-                        <td>BTC/USD</td>
-                        <td>1.96542</td>
-                    </tr>
-                    <tr>
-                        <td>ETH/BTC</td>
-                        <td>2343.22</td>
-                    </tr>
-                    <tr>
-                        <td>LTC/DOGE</td>
-                        <td>15.6893</td>
-                    </tr>
-        
                     </table>
-             </section>
-           
-
+                </section>
         </div>
+
+        <script src="static/app.js" type="text/javascript"></script>  
     </body>
 </html>

@@ -51,7 +51,7 @@ body {
 
   text-decoration: none;
   color:  white;
-  margin:0 4rem;
+  margin:0 1.5rem;
 
 }
 
@@ -162,8 +162,6 @@ img {
 
 .top_5 tr {
   text-align: left;
-
-
 }
 
 .top_5 tr:nth-child(even), .live_prices tr:nth-child(even){
@@ -176,8 +174,8 @@ img {
   grid-area: side;
   display: flex;
   background-color: #161515;
-  padding: 1rem 0 ;
-  align-items: stretch;
+  padding: 1rem .5rem ;
+  align-items: flex-start;
   justify-content: center;
 
 }
@@ -202,8 +200,8 @@ img {
   grid-area: info;
   display: flex;
   background-color: #161515;
-  padding: 1rem 0 ;
-  align-items: stretch;
+  padding: 1rem .5rem;
+  align-items: flex-start;
   justify-content: center;
 
 }
