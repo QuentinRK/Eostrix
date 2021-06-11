@@ -24,7 +24,8 @@ thread_lock = Lock()
 thread = None
 
 
-crypto_list = ["BTCUSDT", "ETHUSDT", "XRPUSDT","LTCUSDT", "XMRUSDT","ETHBTC", "XRPBTC","LTCBTC", "XMRBTC"]
+crypto_list = ["BTCUSDT", "ETHUSDT", "XRPUSDT","LTCUSDT", "XMRUSDT", "BNBUSDT", "XLMUSDT",
+               "ETHBTC", "XRPBTC","LTCBTC", "XMRBTC", "BNBBTC", "XLMBTC"]
 
 streamer = BinanceStreamer(crypto=crypto_list)
 

@@ -10,21 +10,20 @@ body {
   font-family: "Montserrat", sans-serif;
   font-size: 20px;
   width: 100%;
-  min-height: 100vh;
-  overflow:hidden;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .container {
   display: grid;
   text-align: center;
   justify-content: center;
-  height: 100vh;
   gap: .2rem;
-  grid-template-columns: .5fr 1fr 1fr .5fr;
+  grid-template-columns: 1.1fr 1fr 1fr;
   grid-template-rows: .2fr 2fr;
   grid-template-areas: 
-  "title title title title"
-  "side main main info";
+  "title title title"
+  "side main main";
 
 }
 
@@ -95,43 +94,16 @@ img {
 
 }
 
-.main_container {
-  grid-area: main;
-
-}
-
-
 .main {
-  background-color: rgb(158, 152, 152);
+  grid-area: main;
+  background-color: "white";
   display: flex;
-  flex-direction: column;
-  height:100vh;
-}
-
-.main h2 {
-
-  padding: 1rem; 
-
-}
-
-.main hr {
-
-  margin: 0 33rem
-
-}
-
-.chart {
-
-  padding-top: 3rem;
-
+  align-items: center;
+  justify-content: center;
+  padding: 0 3rem;
 }
 
 
-.chart h3 {
-
-  padding-top: 1rem;
-  font-size: 1rem
-}
 
 
 .top_5 {
@@ -174,34 +146,78 @@ img {
   grid-area: side;
   display: flex;
   background-color: #161515;
-  padding: 1rem .5rem ;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 0 1rem;
 
 }
 
 .live_prices {
-  width: 18rem;
+  width: 100%;
+  white-space: nowrap;
+  max-width: 100%;
+
 }
 
-.live_prices, th, td {
-  border-top: 1px solid transparent;
-  border-collapse: collapse;
+.live_prices, tr {
+  border-collapse: separate;
+  border-spacing: 0 1rem;
   color: white;
 
-}
-
-.live_prices th {
-  text-align: left;
 
 }
 
-.side_left {
-  grid-area: info;
-  display: flex;
-  background-color: #161515;
-  padding: 1rem .5rem;
-  align-items: flex-start;
-  justify-content: center;
+.live_prices tr {
+  display: table-row;
+  width: 1rem;
 
 }
+
+.live_prices td {
+  margin-bottom: 3rem;
+
+}
+
+.side h4 {
+  margin: 1.5rem;
+  margin-bottom: 0;
+  font-size: 1.8rem;
+}
+
+
+@media (max-width: 800px) {
+
+
+  body {
+
+    overflow: scroll;
+  }
+  .container {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .navbar{
+
+      order:1;
+    }
+
+    .side{
+      order: 2;
+    }
+    .main{
+      order: 3; 
+    }
+    .live_prices, tr {
+      border-spacing: 0 1.4rem;
+      align-self: center;
+    }
+
+}
+
+
+
+
+
