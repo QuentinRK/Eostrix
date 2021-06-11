@@ -11,20 +11,20 @@ $(document).ready(() => {
                        "ETHBTC", "XRPBTC","LTCBTC", "XMRBTC", "BNBBTC", "XLMBTC"]
 
     var price_change = [];
+    var symbol_list = []
+
     
     socket.on('my_response', (crypto) => {
 
-        price_change.length = 0;
-
         crypto_list.forEach((data) => {
 
-            var last_price = $("." + `${data}`+ " #" +`${data}`+ "1").text(); 
-            var current_price = crypto.data[`${data}`]['price'];
-            var percent_change = crypto.data[`${data}`]['price_change'];
-            var crypto_class = "." + `${data}`;
-            var crypto_id = crypto_class +  " #" +`${data}`+ "1";
+            symbol = `${data}`;
+            var last_price = $("." + symbol+ " #" +symbol + "1").text(); 
+            var current_price = crypto.data[symbol]['price'];
+            var percent_change = crypto.data[symbol]['price_change'];
+            var crypto_class = "." + symbol;
+            var crypto_id = crypto_class +  " #" + symbol + "1";
 
-            price_change.push(percent_change);
 
             $(crypto_id).text(current_price);
             $(crypto_id).css("color", "white");
@@ -38,51 +38,57 @@ $(document).ready(() => {
 
                 $(crypto_class).css("backgroundColor", "green");
             }
-        })
 
-        var ctx = document.getElementById('myChart').getContext('2d');
+            
+            if((price_change.length < 13) && (percent_change != null)){
 
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: crypto_list,
-                datasets: [{
-                    label: '24hr Price Change (%)',
-                    data: price_change,
-                    backgroundColor: [
-                      'rgba(255, 99, 132, 1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(255, 159, 64, 1)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1,
-                    color: ['rgba(255, 255, 255, 255)']
+                price_change.push(percent_change)
+                symbol_list.push(symbol)
+                addData(myChart, price_change, symbol_list)
 
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        // beginAtZero: true
-                    }
-                }
             }
-        });
-
+        })
         
-        console.log(price_change);
-
         
     })
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: symbol_list,
+            datasets: [{
+                label: '24hr Price Change (%)',
+                data: price_change,
+                backgroundColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1,
+                color: ['rgba(255, 255, 255, 255)']
+
+            }]
+        }
+    });
+
+
+    function addData(chart, data, labels){
+        chart.data.labels = labels
+        chart.data.datasets[0].data = data;
+        chart.update()
+    }
   
 })
