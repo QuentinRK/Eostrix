@@ -1,3 +1,5 @@
+const CronJob = require('cron').CronJob;
+
 $(document).ready(() => {
 
     var socket = io();
@@ -90,5 +92,20 @@ $(document).ready(() => {
         chart.data.datasets[0].data = data;
         chart.update()
     }
-  
+
+    const job = new CronJob('0 0 */23 * * *', function() {
+
+        socket.emit('ticker_update', {percentage: price_change,
+                                      crypto: symbol_list})
+        price_change.length = 0;
+        symbol_list.length = 0;
+        
+    });
+
+    job.start()
+
 })
+
+
+
+

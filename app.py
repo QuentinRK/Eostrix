@@ -3,6 +3,8 @@ from flask_socketio import SocketIO, send, emit
 from dotenv import load_dotenv
 from threading import Lock
 from binance_streamer import BinanceStreamer
+from datetime import datetime
+from os.path import exists
 import json
 import os
 import time
@@ -38,7 +40,6 @@ def background_thread():
             socketio.emit('my_response', {'data': dictionary})
             time.sleep(1)
 
-    
 @app.route("/")
 def index():
     return render_template("index.html", crypto=crypto_list, async_mode=socketio.async_mode)
@@ -47,6 +48,26 @@ def index():
 def message(data):
     print("Client:" + data['data'])
 
+@socketio.on('ticker_update')
+def message(data):
+    price_data = data['percentage']
+    symbols_data = data['crypto']
+
+    if price_data != []:
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+
+        price_change = list((str(symbols_data[i]) + ':' + str(price_data[i])) for i in range(len(symbols_data)))
+
+        price_change = str(price_change)
+
+        if (exists("log.txt")):
+            with open("log.txt", 'a') as f:
+                f.write(dt_string + ": " + price_change + "\n")
+        else:
+            file = open("log.txt", "x")
+            file.write(dt_string + ": " + price_change + "\n")
+            file.close()
 
 @socketio.event
 def connect():
