@@ -1,17 +1,19 @@
 from binance import Client, ThreadedWebsocketManager
 
+# This class requires an input of crypto currency pairs to run 
 class BinanceStreamer:
     def __init__(self, crypto=[]):
         self.crypto = crypto
         self.price_change = False
         self.crypto_prices = {}
-        self.msg = None
         self.manager = None
 
+    # Initalised the Websocket manager 
     def initManager(self, api_key, secret_key):
         self.manager = ThreadedWebsocketManager(api_key=api_key, api_secret=secret_key)
         self.manager.start()
-    
+
+    # Specify the types of streams and starts the connection 
     def startStream(self):
         aggTrades = list(map(lambda x: x.lower() + "@aggTrade", self.crypto))
         tickers = list(map(lambda x: x.lower() + "@ticker", self.crypto))
@@ -21,6 +23,11 @@ class BinanceStreamer:
     def stopStream(self):
         self.manager.stop()
 
+    """
+        One of two message handlers that process the data received in the websocket connection  
+        All prices are stored in the crypto_prices dictionary.
+        It is only updated if there is a price change
+    """
     def aggTrade_handler(self, msg):
         length = len(msg["data"])
         symbol = msg["data"]["s"]
@@ -38,6 +45,11 @@ class BinanceStreamer:
             else:
                 self.price_change = False
 
+
+    """
+        This handler process the price change percentage for the currency pairs.
+        This data is also stored in the crypto_price dictionary 
+    """
     def ticker_handler(self, msg):
         length = len(msg["data"])
         symbol = msg["data"]["s"]

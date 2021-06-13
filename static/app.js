@@ -2,6 +2,7 @@ const CronJob = require('cron').CronJob;
 
 $(document).ready(() => {
 
+    // Initialising the websocket connection to the server 
     var socket = io();
     
     socket.on('connect', () => {
@@ -9,30 +10,43 @@ $(document).ready(() => {
     
     });
     
+
     var crypto_list = ["BTCUSDT", "ETHUSDT", "XRPUSDT","LTCUSDT", "XMRUSDT", "BNBUSDT", "XLMUSDT",
                        "ETHBTC", "XRPBTC","LTCBTC", "XMRBTC", "BNBBTC", "XLMBTC"]
 
+    // Variables that hold data for the chart 
     var price_change = [];
     var symbol_list = []
 
     
     socket.on('my_response', (crypto) => {
 
+        /* 
+            In response to crypto data being sent from the server, 
+            the program iterates through each currency pair in the crypto list 
+            to gather the corresponding data such as price and price change. 
+        */ 
+
         crypto_list.forEach((data) => {
 
-            symbol = `${data}`;
-            var last_price = $("." + symbol+ " #" +symbol + "1").text(); 
+            // Gather the text of the currency pair that is dynamically generated in html 
+            var symbol = `${data}`;
+            var last_price = $("." + symbol+ " #" +symbol + "1").text();
+
+            // Extract the data from the Json Object 
             var current_price = crypto.data[symbol]['price'];
             var percent_change = crypto.data[symbol]['price_change'];
+
             var crypto_class = "." + symbol;
             var crypto_id = crypto_class +  " #" + symbol + "1";
 
-
+            // Change the text to the current price 
             $(crypto_id).text(current_price);
             $(crypto_id).css("color", "white");
             
-            if( parseFloat(last_price) > parseFloat(current_price)){
+            if(parseFloat(last_price) > parseFloat(current_price)){
 
+                // If the last price was greater then change the color of the row to red 
                 $(crypto_class).css("backgroundColor", "red");
             }
 
@@ -41,11 +55,18 @@ $(document).ready(() => {
                 $(crypto_class).css("backgroundColor", "green");
             }
 
-            
+           
+            /*
+                This if statement is reponsible for populating the price_change array.
+                The symbol list is populated at the same time so both the price and symbol
+                have the same index in both arrays.
+            */
             if((price_change.length < 13) && (percent_change != null)){
 
                 price_change.push(percent_change)
                 symbol_list.push(symbol)
+
+                // Update the chart
                 addData(myChart, price_change, symbol_list)
 
             }
@@ -54,6 +75,7 @@ $(document).ready(() => {
         
     })
 
+    // Setup for Chart.js
     var ctx = document.getElementById('myChart').getContext('2d');
 
     var myChart = new Chart(ctx, {
@@ -64,35 +86,28 @@ $(document).ready(() => {
                 label: '24hr Price Change (%)',
                 data: price_change,
                 backgroundColor: [
-                  'rgba(255, 99, 132, 1)',
                   'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
                 ],
                 borderWidth: 1,
-                color: ['rgba(255, 255, 255, 255)']
+                color: ['rgba(54, 162, 235, 1)']
 
             }]
         }
     });
 
 
+    // Function responsible for updating the chart 
     function addData(chart, data, labels){
         chart.data.labels = labels
         chart.data.datasets[0].data = data;
         chart.update()
     }
 
+    /*
+        The price change and symbol list are cleared every 24 hours.
+        This is because the API that the data is being taken from updates,
+        the information at this rate (24hr Ticker).
+    */
     const job = new CronJob('0 0 */23 * * *', function() {
 
         socket.emit('ticker_update', {percentage: price_change,

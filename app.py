@@ -15,21 +15,25 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 socketio = SocketIO(app, async_mode=None)
 
-
 # Credentials
 load_dotenv(".env")
 API_KEY = os.getenv("API_KEY")
-SECRET_KEY = os.getenv("SECRET")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 thread_lock = Lock()
 thread = None
 
-
+# Currency Pairs
 crypto_list = ["BTCUSDT", "ETHUSDT", "XRPUSDT","LTCUSDT", "XMRUSDT", "BNBUSDT", "XLMUSDT",
                "ETHBTC", "XRPBTC","LTCBTC", "XMRBTC", "BNBBTC", "XLMBTC"]
 
 streamer = BinanceStreamer(crypto=crypto_list)
+
+"""
+    Connects to the binance api through the BinanceStreamer class 
+    Every second this thread emits this data to the client side 
+""" 
 
 def background_thread():
     streamer.initManager(API_KEY, SECRET_KEY)
@@ -48,6 +52,10 @@ def index():
 def message(data):
     print("Client:" + data['data'])
 
+
+"""
+    Every 24hours the update on the price change is logged to a txt file 
+"""
 @socketio.on('ticker_update')
 def message(data):
     price_data = data['percentage']
@@ -69,6 +77,8 @@ def message(data):
             file.write(dt_string + ": " + price_change + "\n")
             file.close()
 
+
+# Runs the background thread that has a websocket connection to the binance API
 @socketio.event
 def connect():
     global thread

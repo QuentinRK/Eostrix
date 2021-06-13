@@ -1,10 +1,9 @@
-<html class="no-js">
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Eostrix</title>
-        <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="static/styles.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js" integrity="sha512-iZIBSs+gDyTH0ZhUem9eQ1t4DcEn2B9lHxfRMeGQhyNdSUz+rb+5A3ummX6DQTOIs1XK0gOteOg/LPtSo9VJ+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -12,43 +11,30 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>   
     </head>
     <body>
-
-        <div class="container">
-
+    <div class="container">
         <div class="navbar">
             <header class="header">
                 <h1>Eostrix</h1>
-            </header>
-
-            <nav>
-                <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Contact</a></li>
-                </ul>
-            </nav>
-            
+            </header> 
         </div>
-    
             <section class="box main">
                 <canvas id="myChart" height=50 width=80></canvas>
-            </section>
-           
-           <section class="box side">
-            <h4>Live Prices</h4>
-            <table class="live_prices">
-                {% for items in crypto %}
-                <tr class={{items}}>
-                    <td>
-                        {{items}}
-                    </td>
-                    {% set id = items + "1" %}
-                    <td id={{id}}></td>
-                </tr>
-                {% endfor %}
-                </table>
-            </section>
-        
-        </div>
-        <script src="static/app_web.js"></script>     
+            </section>           
+                <section class="box side">
+                    <h4>Live Prices</h4>
+                    <table class="live_prices">
+                        {% for items in crypto %}
+                        <tr class={{items}}>
+                            <td>
+                                {{items}}
+                            </td>
+                            {% set id = items + "1" %}
+                            <td id={{id}}></td>
+                        </tr>
+                        {% endfor %}
+                        </table>
+                </section>      
+    </div>
+    <script src="static/app_web.js"></script>     
     </body>
 </html>

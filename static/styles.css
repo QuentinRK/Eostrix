@@ -34,67 +34,22 @@ body {
   color: white;
   background-color: #161515;
 }
+
 .navbar {
-  grid-area: title;
   display: flex;
-  justify-content: space-between;
-  padding: 0 6rem;
+  grid-area: title;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
 }
 
-.navbar li {
-
-  display: inline-block;
-  font-size: 1.1rem;
-}
-
-.navbar li a {
-
-  text-decoration: none;
-  color:  white;
-  margin:0 1.5rem;
-
-}
-
-
-.navbar li a:hover {
-
-  border: transparent;
-  padding: .3rem .7rem;
-  border-radius: 1rem;
-  background-color: grey;
-  animation: navbarHover 1.5s alternate infinite;
-  animation-timing-function: ease-in-out;
-  animation-delay: 1s;
-}
-
-@keyframes navbarHover {
-
-  0%   {background-color: #868686;}
-  10%  {background-color: #706f6f;}
-  20%  {background-color: #5f5e5e;}
-  30%  {background-color: #535252;}
-  40%  {background-color: #4b4a4a;}
-  50%  {background-color: #464646;}
-  60%  {background-color: #3b3b3b;}
-  70%  {background-color: #313131;}
-  80%  {background-color: #2c2c2c;}
-  100% {background-color: #272727;}
-}
 
 .header h1 {
-  font-size: 2rem;
+  font-size: 3rem;
   justify-content: flex-start;
   font-family: 'Megrim', cursive;
 }
 
-
-img {
-
-  padding: rem;
-  width: 70%;
-
-}
 
 .main {
   grid-area: main;
@@ -104,9 +59,6 @@ img {
   justify-content: center;
   padding: 0 3rem;
 }
-
-
-
 
 .top_5 {
   margin: 1rem 7rem;
@@ -188,26 +140,28 @@ img {
 }
 
 
-
 @media (max-width: 800px) {
 
   body{
-
     min-height: 100vh;
+    overflow: scroll;
   }
 
   .container {
       display: flex;
       flex-direction: column;
-      flex-wrap: nowrap;
-      overflow: scroll;
       height: auto;
-    
     }
 
     .navbar{
 
       order: 1;
+      justify-content: center;
+    }
+
+    .navbar h1{
+
+      font-size: 2rem;
     }
 
     .side{
@@ -218,6 +172,7 @@ img {
       
       order: 3; 
     }
+
     .live_prices, tr {
       align-self: center;
     }
