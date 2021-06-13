@@ -8,11 +8,14 @@ from os.path import exists
 import json
 import os
 import time
+import eventlet
+
+eventlet.monkey_patch()
 
 app = Flask(__name__)
 
 
-socketio = SocketIO(app, async_mode=None)
+socketio = SocketIO(app, async_mode='eventlet')
 
 # Credentials
 # load_dotenv(".env")
