@@ -10,14 +10,15 @@ import os
 import time
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ["SECRET"]
+
 
 socketio = SocketIO(app, async_mode=None)
 
 # Credentials
-load_dotenv(".env")
+# load_dotenv(".env")
 API_KEY = os.environ["API_KEY"]
 SECRET_KEY = os.environ["SECRET_KEY"]
+app.config['SECRET_KEY'] = os.environ["SECRET"]
 
 
 thread_lock = Lock()
