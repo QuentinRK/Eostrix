@@ -8,9 +8,7 @@ from os.path import exists
 import json
 import os
 import time
-import eventlet
 
-eventlet.monkey_patch()
 
 app = Flask(__name__)
 
