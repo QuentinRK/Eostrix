@@ -7995,7 +7995,6 @@ $(document).ready(() => {
             the program iterates through each currency pair in the crypto list 
             to gather the corresponding data such as price and price change. 
         */ 
-
         crypto_list.forEach((data) => {
 
             // Gather the text of the currency pair that is dynamically generated in html 

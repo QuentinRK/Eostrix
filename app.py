@@ -1,6 +1,8 @@
+from gevent import monkey
+monkey.patch_all()
+
 from flask import Flask, request, jsonify, render_template
 from flask_socketio import SocketIO, send, emit
-from dotenv import load_dotenv
 from threading import Lock
 from binance_streamer import BinanceStreamer
 from datetime import datetime
@@ -9,17 +11,15 @@ import json
 import os
 import time
 
-
 app = Flask(__name__)
 
-
-socketio = SocketIO(app, async_mode='eventlet')
+socketio = SocketIO(app, async_mode="gevent")
 
 # Credentials
-# load_dotenv(".env")
 API_KEY = os.environ["API_KEY"]
 SECRET_KEY = os.environ["SECRET_KEY"]
 app.config['SECRET_KEY'] = os.environ["SECRET"]
+
 
 
 thread_lock = Lock()
@@ -29,7 +29,7 @@ thread = None
 crypto_list = ["BTCUSDT", "ETHUSDT", "XRPUSDT","LTCUSDT", "XMRUSDT", "BNBUSDT", "XLMUSDT",
                "ETHBTC", "XRPBTC","LTCBTC", "XMRBTC", "BNBBTC", "XLMBTC"]
 
-streamer = BinanceStreamer(crypto=crypto_list)
+
 
 """
     Connects to the binance api through the BinanceStreamer class 
@@ -37,17 +37,18 @@ streamer = BinanceStreamer(crypto=crypto_list)
 """ 
 
 def background_thread():
+    streamer = BinanceStreamer(crypto=crypto_list)
     streamer.initManager(API_KEY, SECRET_KEY)
     streamer.startStream()
     dictionary = streamer.crypto_prices
     while True:
-        if (dictionary != {}) and streamer.price_change:
-            socketio.emit('my_response', {'data': dictionary})
-            time.sleep(1)
+        time.sleep(1)
+        socketio.emit('my_response', {'data': dictionary})
+        
 
 @app.route("/")
 def index():
-    return render_template("index.html", crypto=crypto_list, async_mode=socketio.async_mode)
+        return render_template("index.html", crypto=crypto_list, async_mode=socketio.async_mode)
 
 @socketio.on('client_connected')
 def message(data):
@@ -65,11 +66,8 @@ def message(data):
     if price_data != []:
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-
         price_change = list((str(symbols_data[i]) + ':' + str(price_data[i])) for i in range(len(symbols_data)))
-
         price_change = str(price_change)
-
         if (exists("log.txt")):
             with open("log.txt", 'a') as f:
                 f.write(dt_string + ": " + price_change + "\n")
@@ -79,7 +77,8 @@ def message(data):
             file.close()
 
 
-# Runs the background thread that has a websocket connection to the binance API
+# # Runs the background thread that has a websocket connection to the binance API
+
 @socketio.event
 def connect():
     global thread
@@ -89,4 +88,4 @@ def connect():
 
 
 if __name__ == '__main__':
-    socketio.run(app,debug=True)
+    socketio.run(app)

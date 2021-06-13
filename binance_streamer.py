@@ -1,10 +1,9 @@
-from binance import Client, ThreadedWebsocketManager
+from binance import ThreadedWebsocketManager
 
 # This class requires an input of crypto currency pairs to run 
 class BinanceStreamer:
     def __init__(self, crypto=[]):
         self.crypto = crypto
-        self.price_change = False
         self.crypto_prices = {}
         self.manager = None
 
@@ -41,9 +40,6 @@ class BinanceStreamer:
 
             if (current_price != last_price):
                 self.crypto_prices[f"{symbol}"]["price"] = current_price
-                self.price_change = True
-            else:
-                self.price_change = False
 
 
     """
@@ -56,10 +52,13 @@ class BinanceStreamer:
         percent_change = msg["data"]["P"]
         self.msg = msg
 
-        if (symbol not in self.crypto_prices):
+        if (symbol not in self.crypto_prices) or ("price_change" not in self.crypto_prices[f"{symbol}"]):
             self.crypto_prices[f"{symbol}"] = {"price_change": percent_change}
         else:
-            percent_change = self.crypto_prices[f"{symbol}"]["price_change"] = percent_change
+            last_percent_change = self.crypto_prices[f"{symbol}"]["price_change"]
+
+            if (percent_change != last_percent_change):
+                percent_change = self.crypto_prices[f"{symbol}"]["price_change"] = percent_change
       
 
 if __name__== '__main__':
