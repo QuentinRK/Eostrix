@@ -5,7 +5,6 @@ from flask import Flask, request, jsonify, render_template
 from flask_socketio import SocketIO, send, emit
 from threading import Lock
 from binance_streamer import BinanceStreamer
-from dotenv import load_dotenv
 from datetime import datetime
 from os.path import exists
 import json
@@ -17,13 +16,9 @@ app = Flask(__name__)
 socketio = SocketIO(app, async_mode="gevent")
 
 # Credentials
-# API_KEY = os.environ["API_KEY"]
-# SECRET_KEY = os.environ["SECRET_KEY"]
-# app.config['SECRET_KEY'] = os.environ["SECRET"]
-
-API_KEY = os.getenv("API_KEY")
-SECRET_KEY = os.getenv("SECRET_KEY")
-app.config['SECRET_KEY'] = os.getenv("SECRET")
+API_KEY = os.environ["API_KEY"]
+SECRET_KEY = os.environ["SECRET_KEY"]
+app.config['SECRET_KEY'] = os.environ["SECRET"]
 
 thread_lock = Lock()
 thread = None
