@@ -16,9 +16,9 @@ app = Flask(__name__)
 socketio = SocketIO(app, async_mode="gevent")
 
 # Credentials
-API_KEY = os.getenv("API_KEY")
-SECRET_KEY = os.getenv("SECRET_KEY")
-app.config['SECRET_KEY'] = os.getenv("SECRET")
+API_KEY = os.environ["API_KEY"]
+SECRET_KEY = os.environ["SECRET_KEY"]
+app.config['SECRET_KEY'] = os.environ["SECRET"]
 
 thread_lock = Lock()
 thread = None
