@@ -8018,7 +8018,7 @@ $(document).ready(() => {
                 $(crypto_class).css("backgroundColor", "red");
             }
 
-            if( parseFloat(last_price) < parseFloat(current_price)){
+            if(parseFloat(last_price) < parseFloat(current_price)){
 
                 $(crypto_class).css("backgroundColor", "green");
             }
@@ -8032,18 +8032,17 @@ $(document).ready(() => {
             if((price_change.length < 14) && (percent_change != null)){
 
                 if(!symbol_list.includes(symbol)){
-
                     price_change.push(percent_change)
-                    symbol_list.push(symbol) 
+                    symbol_list.push(symbol)
                 }
+
                 // Update the chart
                 addData(myChart, price_change, symbol_list)
 
             }
-        })
-        
-        
+        })        
     })
+
 
     // Setup for Chart.js
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -8055,14 +8054,9 @@ $(document).ready(() => {
             datasets: [{
                 label: '24hr Price Change (%)',
                 data: price_change,
-                backgroundColor: [
-                  'rgba(54, 162, 235, 1)',
-                ],
+                backgroundColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1,
-                color: ['rgba(54, 162, 235, 1)']
-
             }]
-    
         }
     });
 
@@ -8091,10 +8085,6 @@ $(document).ready(() => {
     job.start()
 
 })
-
-
-
-
 
 },{"cron":1}],7:[function(require,module,exports){
 
