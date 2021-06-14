@@ -8061,10 +8061,8 @@ $(document).ready(() => {
                 borderWidth: 1,
                 color: ['rgba(54, 162, 235, 1)']
 
-            }],
-            options: {
-                responsive: true
-            }
+            }]
+    
         }
     });
 
