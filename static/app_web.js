@@ -8029,7 +8029,7 @@ $(document).ready(() => {
                 The symbol list is populated at the same time so both the price and symbol
                 have the same index in both arrays.
             */
-            if((price_change.length < 13) && (percent_change != null)){
+            if((price_change.length < 14) && (percent_change != null)){
 
                 if(!symbol_list.includes(symbol)){
 
