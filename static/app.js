@@ -62,9 +62,11 @@ $(document).ready(() => {
             */
             if((price_change.length < 13) && (percent_change != null)){
 
-                price_change.push(percent_change)
-                symbol_list.push(symbol)
+                if(!symbol_list.includes(symbol)){
 
+                    price_change.push(percent_change)
+                    symbol_list.push(symbol) 
+                }
                 // Update the chart
                 addData(myChart, price_change, symbol_list)
 
